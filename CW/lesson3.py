@@ -23,16 +23,6 @@ class Character:
         print("Рівень:", self.level)
 
 
-player1 = Character("Knight", 5)
-
-player1.info()
-
-
-# ЗАВДАННЯ:
-# створи ще 2 персонажі
-# зроби різні level
-
-
 class Weapon:
     def __init__(self, name, damage):
         self.name = name
@@ -46,6 +36,8 @@ class Weapon:
 sword = Weapon("Iron Sword", 25)
 
 sword.info()
+
+
 
 
 # ЗАВДАННЯ:
@@ -74,15 +66,21 @@ class Character:
     def info(self):
         print("Ім'я:", self.name)
         print("Рівень:", self.level)
-    def show_weapon(self):
         print(self.name, "використовує", self.weapon.name)
 
-
 sword = Weapon("Diamond Sword", 40)
-
 player = Character("Alex", 10, sword)
 
-player.show_weapon()
+player.info()
+
+# ЗАВДАННЯ:
+# - персонажа з луком
+# - персонажа з магічним посохом
+
+
+
+
+
 
 # ОБ’ЄКТ ВСЕРЕДИНІ ОБ’ЄКТА
 
@@ -127,7 +125,6 @@ class Character:
         print(self.name, "використовує", self.weapon.name)
 
     def attack(self, enemy):
-
         print(self.name, "атакує", enemy.name)
 
         enemy.health -= self.weapon.damage
@@ -139,7 +136,7 @@ class Character:
 sword = Weapon("Dragon Sword", 35)
 player = Character("Knight", 12, sword)
 
-enemy = Enemy("Skeleton", 120)
+enemy = Enemy("Skeleton", 100)
 
 player.attack(enemy)
 
@@ -173,8 +170,7 @@ class Character:
 
         self.health = 100
 
-    def show_stats(self):
-
+    def info(self):
         print("Ім'я:", self.name)
         print("HP:", self.health)
         print("Зброя:", self.weapon.name)

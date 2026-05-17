@@ -1,87 +1,83 @@
 ﻿# УРОК 4: НАСЛІДУВАННЯ КЛАСІВ. super()
-# GAME RPG VERSION
+# ANIMAL WORLD VERSION
 
 # СЬОГОДНІ:
 # - навчимось робити ієрархію класів
 # - зрозуміємо inheritance
 # - розберемо super()
-# - зробимо професійну структуру персонажів
 # - навчимось override методів
-# - створимо RPG систему класів
+# - створимо систему тварин
 
 
 # УЯВИ:
 
-# У грі є:
-# - Warrior
-# - Mage
-# - Archer
+# У зоопарку є:
+# - Dog
+# - Cat
+# - Bird
 
 # У ВСІХ є:
 # - ім'я
-# - hp
-# - level
+# - вік
+# - здоров'я
 
 # Але:
-# Warrior має силу
-# Mage має ману
-# Archer має точність
+# Dog має силу
+# Cat має спритність
+# Bird має швидкість
 
 # Щоб не дублювати код —
 # використовують НАСЛІДУВАННЯ
 
 
-class Character:
-    def __init__(self, name, level):
-
+class Animal:
+    def __init__(self, name, age):
         self.name = name
-        self.level = level
+        self.age = age
 
         self.health = 100
 
     def info(self):
-
         print("Ім'я:", self.name)
-        print("Рівень:", self.level)
+        print("Вік:", self.age)
         print("HP:", self.health)
 
 
-player = Character("Hero", 1)
+animal = Animal("Барсик", 3)
 
-player.info()
-
+animal.info()
 
 # ЗАВДАННЯ:
-# створи ще одного персонажа
+# створи ще одну тварину
 
 
 # ПРОБЛЕМА БЕЗ НАСЛІДУВАННЯ
 
 
-class Warrior:
-    def __init__(self, name, level, strength):
+class Dog:
+    def __init__(self, name, age, strength):
 
         self.name = name
-        self.level = level
+        self.age = age
         self.health = 100
 
         self.strength = strength
 
 
-class Mage:
-    def __init__(self, name, level, mana):
+class Cat:
+    def __init__(self, name, age, agility):
 
         self.name = name
-        self.level = level
+        self.age = age
         self.health = 100
 
-        self.mana = mana
+        self.agility = agility
 
 
 # ПРОБЛЕМА:
 # ми копіюємо:
 # - name
-# - level
+# - age
 # - health
 
 # Це погана практика.
@@ -91,49 +87,55 @@ class Mage:
 # inheritance
 
 
-class Character:
-    def __init__(self, name, level):
+class Animal:
+    def __init__(self, name, age):
 
         self.name = name
-        self.level = level
+        self.age = age
 
         self.health = 100
 
     def info(self):
 
         print("Ім'я:", self.name)
-        print("Рівень:", self.level)
+        print("Вік:", self.age)
         print("HP:", self.health)
 
 
-class Warrior(Character):
+class Dog(Animal):
 
-    def __init__(self, name, level, strength):
+    def __init__(self, name, age, strength):
 
-        super().__init__(name, level)
+        super().__init__(name, age)
 
         self.strength = strength
 
+dog = Dog("Рекс", 5, 40)
 
-warrior = Warrior("Knight", 5, 40)
+dog.info()
 
-warrior.info()
+print("Сила:", dog.strength)
 
-print("Сила:", warrior.strength)
+# ЗАВДАННЯ:
+# створи:
+# - Cat
+# - Bird
+
+
 
 
 # ПОЯСНЕННЯ:
 
-# Warrior(Character)
+# Dog(Animal)
 
 # означає:
-# Warrior наслідує Character
+# Dog наслідує Animal
 
-# Warrior автоматично отримує:
+# Dog автоматично отримує:
 # - info()
 # - health
 # - name
-# - level
+# - age
 
 
 # super() викликає код батьківського класу
@@ -141,43 +143,43 @@ print("Сила:", warrior.strength)
 
 # ПРОСТО:
 
-# Character = база
-# Warrior = розширення
+# Animal = база
+# Dog = розширення
 
 
 # ЗАВДАННЯ:
 # створи:
-# - Mage
-# - Archer
+# - Cat
+# - Bird
 
 # через inheritance
 
 
-class Character:
+class Animal:
     def __init__(self, name):
 
-        print("Створюється Character")
+        print("Створюється Animal")
 
         self.name = name
 
 
-class Mage(Character):
+class Cat(Animal):
 
     def __init__(self, name):
 
-        print("Створюється Mage")
+        print("Створюється Cat")
 
         super().__init__(name)
 
 
-mage = Mage("Dark Wizard")
+cat = Cat("Мурка")
 
 
 # ПОРЯДОК:
 
-# 1. Mage __init__
+# 1. Cat __init__
 # 2. super()
-# 3. Character __init__
+# 3. Animal __init__
 
 
 # ВАЖЛИВО:
@@ -189,103 +191,106 @@ mage = Mage("Dark Wizard")
 
 
 # ЗАВДАННЯ:
-# додай print у Archer
+# додай print у Bird
 
 
-class Character:
-    def __init__(self, name, level):
+class Animal:
+    def __init__(self, name, age):
 
         self.name = name
-        self.level = level
+        self.age = age
 
         self.health = 100
 
-    def attack(self):
+    def info(self):
+        print("Ім'я:", self.name)
+        print("Вік:", self.age)
+        print("HP:", self.health)
 
-        print(self.name, "атакує")
+    def move(self):
+
+        print(self.name, "рухається")
 
 
-class Warrior(Character):
+class Dog(Animal):
 
-    def __init__(self, name, level):
+    def __init__(self, name, age):
 
-        super().__init__(name, level)
+        super().__init__(name, age)
 
         self.strength = 50
 
-    def heavy_attack(self):
+    def bark(self):
 
-        print(self.name, "використовує HEAVY ATTACK")
+        print(self.name, "гавкає")
 
 
-player = Warrior("Arthur", 10)
+dog = Dog("Бобік", 4)
 
-player.attack()
+dog.move()
 
-player.heavy_attack()
+dog.bark()
+
+
+
+
+
+
 
 
 # ПОЯСНЕННЯ:
 
-# Warrior має:
-# - attack() з Character
-# - heavy_attack() свій
+# Dog має:
+# - move() з Animal
+# - bark() свій
 
 
-# ЗАВДАННЯ:
-# додай:
-# - fireball() для Mage
-# - sniper_shot() для Archer
+
 
 
 # OVERRIDE МЕТОДІВ
 
 
-class Character:
-    def attack(self):
+class Animal:
+    def sound(self):
 
-        print("Базова атака")
-
-
-class Warrior(Character):
-
-    def attack(self):
-
-        print("Warrior б'є мечем")
+        print("Тварина видає звук")
 
 
-class Mage(Character):
+class Dog(Animal):
 
-    def attack(self):
+    def sound(self):
 
-        print("Mage кидає магію")
+        print("Собака гавкає")
 
 
-w = Warrior()
-m = Mage()
+class Cat(Animal):
 
-w.attack()
-m.attack()
+    def sound(self):
+
+        print("Кіт нявкає")
+
+
+d = Dog()
+c = Cat()
+
+d.sound()
+c.sound()
 
 
 # ПОЯСНЕННЯ:
 
-# attack() один і той самий
+# sound() один і той самий
 # але поведінка різна
 
 # Це override
 
 
-# В ІГРАХ:
-# майже всі системи
-# працюють через override
-
-
 # ЗАВДАННЯ:
-# зроби attack() для Archer
+# зроби sound() для Bird
 
 
-class Character:
+class Animal:
     def __init__(self, name):
 
         self.name = name
@@ -295,24 +300,24 @@ class Character:
         print("Ім'я:", self.name)
 
 
-class Mage(Character):
+class Bird(Animal):
 
-    def __init__(self, name, mana):
+    def __init__(self, name, speed):
 
         super().__init__(name)
 
-        self.mana = mana
+        self.speed = speed
 
     def info(self):
 
         super().info()
 
-        print("Mana:", self.mana)
+        print("Швидкість:", self.speed)
 
 
-mage = Mage("Wizard", 120)
+bird = Bird("Кеша", 120)
 
-mage.info()
+bird.info()
 
 
 # ПОЯСНЕННЯ:
@@ -320,7 +325,7 @@ mage.info()
 # super().info()
 
 # запускає:
-# Character.info()
+# Animal.info()
 
 # а потім ми додаємо своє
 
@@ -331,84 +336,83 @@ mage.info()
 
 # ЗАВДАННЯ:
 # додай:
-# - level
+# - age
 # - hp
 
 
-# NPC SYSTEM
+# PET SYSTEM
 
 
-class NPC(Character):
+class Pet(Animal):
 
-    def __init__(self, name, role):
+    def __init__(self, name, owner):
 
         super().__init__(name, 1)
 
-        self.role = role
+        self.owner = owner
 
-    def talk(self):
+    def play(self):
 
-        print(self.name, "говорить:")
-        print("Ласкаво просимо в місто")
+        print(self.name, "грається")
 
 
-npc = NPC("Merchant", "Trader")
+pet = Pet("Лакі", "Олег")
 
-npc.info()
+pet.info()
 
-npc.talk()
+pet.play()
 
 
 # ЗАВДАННЯ:
 # створи:
-# - Blacksmith
-# - Guard
-# - Healer
+# - Hamster
+# - Parrot
+# - Rabbit
 
 
-# MONSTER SYSTEM
+# WILD ANIMALS
 
 
-class Monster(Character):
+class WildAnimal(Animal):
 
-    def __init__(self, name, level, damage):
+    def __init__(self, name, age, danger):
 
-        super().__init__(name, level)
+        super().__init__(name, age)
 
-        self.damage = damage
+        self.danger = danger
 
     def attack(self):
 
-        print(self.name, "атакує монстрами")
+        print(self.name, "атакує")
 
 
-class Boss(Monster):
+class Lion(WildAnimal):
 
-    def __init__(self, name, level, damage):
+    def __init__(self, name, age, danger):
 
-        super().__init__(name, level, damage)
+        super().__init__(name, age, danger)
 
-        self.rage = 100
+        self.roar_power = 100
 
-    def ultimate(self):
+    def roar(self):
 
-        print(self.name, "використовує ULTIMATE")
+        print(self.name, "голосно ричить")
 
 
-boss = Boss("Dragon Lord", 50, 80)
+lion = Lion("Сімба", 7, 80)
 
-boss.info()
+lion.info()
 
-boss.attack()
+lion.attack()
 
-boss.ultimate()
+lion.roar()
 
 
 # ІЄРАРХІЯ:
 
-# Character
-# └── Monster
-#     └── Boss
+# Animal
+# └── WildAnimal
+#     └── Lion
 
 
 # ВАЖЛИВО:
@@ -418,101 +422,99 @@ boss.ultimate()
 
 # ЗАВДАННЯ:
 # створи:
-# - MiniBoss
-# - DemonBoss
+# - Tiger
+# - Wolf
 
 
-# ДОДАЄМО INVENTORY SYSTEM
+# ДОДАЄМО FOOD SYSTEM
 
 
-class Character:
+class Animal:
     def __init__(self, name):
 
         self.name = name
 
-        self.inventory = []
+        self.food = []
 
-    def add_item(self, item):
+    def add_food(self, item):
 
-        self.inventory.append(item)
+        self.food.append(item)
 
-    def show_inventory(self):
+    def show_food(self):
 
-        print("Інвентар:")
+        print("Їжа:")
 
-        for item in self.inventory:
+        for item in self.food:
             print("-", item)
 
 
-class Warrior(Character):
+class Dog(Animal):
 
-    def equip_sword(self):
+    def fetch_ball(self):
 
-        print(self.name, "екіпірував меч")
+        print(self.name, "приніс м'яч")
 
 
-player = Warrior("Knight")
+dog = Dog("Рекс")
 
-player.add_item("Health Potion")
-player.add_item("Epic Sword")
+dog.add_food("М'ясо")
+dog.add_food("Кістка")
 
-player.show_inventory()
+dog.show_food()
 
-player.equip_sword()
+dog.fetch_ball()
 
 
 # ВАЖЛИВО:
 
-# Warrior отримав inventory
+# Dog отримав food
 # через inheritance
 
 
-# MULTIPLE CHARACTERS
+# MULTIPLE ANIMALS
 
 
-class Character:
+class Animal:
     def __init__(self, name):
 
         self.name = name
 
-        self.health = 100
+    def sound(self):
 
-    def attack(self):
-
-        print("Базова атака")
+        print("Тварина видає звук")
 
 
-class Warrior(Character):
+class Dog(Animal):
 
-    def attack(self):
+    def sound(self):
 
-        print(self.name, "б'є мечем")
-
-
-class Mage(Character):
-
-    def attack(self):
-
-        print(self.name, "кидає Fireball")
+        print(self.name, "гавкає")
 
 
-class Archer(Character):
+class Cat(Animal):
 
-    def attack(self):
+    def sound(self):
 
-        print(self.name, "стріляє з лука")
+        print(self.name, "нявкає")
 
 
-characters = [
-    Warrior("Knight"),
-    Mage("Wizard"),
-    Archer("Sniper")
+class Bird(Animal):
+
+    def sound(self):
+
+        print(self.name, "цвірінькає")
+
+
+animals = [
+    Dog("Бобік"),
+    Cat("Мурка"),
+    Bird("Кеша")
 ]
 
 
-for character in characters:
+for animal in animals:
 
-    character.attack()
+    animal.sound()
 
 
 # ПОЯСНЕННЯ:
@@ -523,14 +525,14 @@ for character in characters:
 # Це POLYMORPHISM
 
 
-# MINI RPG PROJECT
+# MINI ANIMAL PROJECT
 
 
-class Character:
-    def __init__(self, name, level):
+class Animal:
+    def __init__(self, name, age):
 
         self.name = name
-        self.level = level
+        self.age = age
 
         self.health = 100
         self.energy = 100
@@ -539,170 +541,146 @@ class Character:
 
         print(
             self.name,
-            "| LEVEL:", self.level,
+            "| AGE:", self.age,
             "| HP:", self.health,
             "| ENERGY:", self.energy
         )
 
-    def attack(self):
+    def action(self):
 
-        print(self.name, "атакує")
+        print(self.name, "щось робить")
 
 
-class Warrior(Character):
+class Dog(Animal):
 
-    def __init__(self, name, level):
+    def __init__(self, name, age):
 
-        super().__init__(name, level)
+        super().__init__(name, age)
 
         self.strength = 50
 
-    def attack(self):
+    def action(self):
 
-        damage = self.strength
+        print(self.name, "біжить за м'ячем")
 
-        print(self.name, "атакує мечем")
-        print("Damage:", damage)
+    def guard_house(self):
 
-    def shield_block(self):
-
-        print(self.name, "використовує SHIELD BLOCK")
+        print(self.name, "охороняє будинок")
 
 
-class Mage(Character):
+class Cat(Animal):
 
-    def __init__(self, name, level):
+    def __init__(self, name, age):
 
-        super().__init__(name, level)
+        super().__init__(name, age)
 
-        self.mana = 120
+        self.agility = 120
 
-    def attack(self):
+    def action(self):
 
-        if self.mana >= 20:
+        print(self.name, "лазить по меблях")
 
-            self.mana -= 20
+    def sleep(self):
 
-            print(self.name, "використовує FIREBALL")
-            print("Mana:", self.mana)
-
-        else:
-            print("Недостатньо мани")
-
-    def teleport(self):
-
-        print(self.name, "телепортується")
+        print(self.name, "спить")
 
 
-class Archer(Character):
+class Bird(Animal):
 
-    def __init__(self, name, level):
+    def __init__(self, name, age):
 
-        super().__init__(name, level)
+        super().__init__(name, age)
 
-        self.arrows = 30
+        self.fly_energy = 30
 
-    def attack(self):
+    def action(self):
 
-        if self.arrows > 0:
+        if self.fly_energy > 0:
 
-            self.arrows -= 1
+            self.fly_energy -= 1
 
-            print(self.name, "стріляє")
+            print(self.name, "летить")
 
-            print("Стріл залишилось:", self.arrows)
+            print("Енергія польоту:", self.fly_energy)
 
         else:
-            print("Немає стріл")
+            print("Птах втомився")
 
-    def dodge(self):
+    def sing(self):
 
-        print(self.name, "ухиляється")
+        print(self.name, "співає")
 
 
-warrior = Warrior("Arthur", 10)
+dog = Dog("Рекс", 5)
 
-mage = Mage("Merlin", 12)
+cat = Cat("Мурка", 3)
 
-archer = Archer("Robin", 9)
+bird = Bird("Кеша", 2)
 
-warrior.info()
-warrior.attack()
-warrior.shield_block()
+dog.info()
+dog.action()
+dog.guard_house()
 
 print()
 
-mage.info()
-mage.attack()
-mage.teleport()
+cat.info()
+cat.action()
+cat.sleep()
 
 print()
 
-archer.info()
-archer.attack()
-archer.dodge()
+bird.info()
+bird.action()
+bird.sing()
 
 
 # ФІНАЛЬНІ ЗАВДАННЯ
 
 
 # 1.
-# Додай Assassin class
+# Додай Fish class
 
 # 2.
 # Зроби:
-# - critical hit
-# - stealth mode
+# - swim()
+# - jump()
 
 # 3.
-# Створи Pet class:
-# - Wolf
-# - Dragon
-# - Phoenix
+# Створи FarmAnimal class:
+# - Cow
+# - Sheep
+# - Chicken
 
 # 4.
-# Додай EXP system
+# Додай happiness system
 
 # 5.
-# Якщо EXP > 100:
-# level up
+# Якщо happiness > 100:
+# тварина щаслива
 
 # 6.
 # Додай:
-# - rarity предметів
-# - common
-# - rare
-# - epic
-# - legendary
+# - улюблену їжу
+# - вагу
+# - колір
 
 # 7.
 # Зроби:
-# - PvP battle
-# - Monster battle
+# - race між тваринами
+# - battle між дикими тваринами
 
 # 8.
 # Додай:
-# - stamina
-# - mana regeneration
+# - energy regeneration
+# - hunger system
 
 # 9.
-# Створи Guild class
+# Створи Zoo class
 
 # 10.
 # Зроби:
-# battle loop через while
+# цикл догляду через while
 
-
-# ТЕ, ЩО ТИ ЗАРАЗ ВЧИШ —
-# це вже справжня архітектура ігор.
-
-# Саме так створюються:
-# - RPG engines
-# - MMORPG systems
-# - battle simulators
-# - Minecraft servers
-# - Unity gameplay systems
-# - Discord RPG bots
 
 # inheritance —
 # одна з головних частин ООП.
